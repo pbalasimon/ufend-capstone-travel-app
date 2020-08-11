@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Planner</title>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">Travel Planner</header>
+    <main class="main">
+
+        <!-- Find your trip section -->
+        <section class="main__search">
+            <div class="main__header">
+                <h1 class="main__title">
+                    Welcome to Travel Planner APP!
+                </h1>
+                <h6 class="main__subtitle">Find the trip of your dreams</h6>
+            </div>
+
+            <form class="main__form" onsubmit="return client.findTrip(event)">
+                <div class="main__input">
+                    <label for="to">My trip to:</label>
+                    <input type="text" id="to" name="to" placeholder="Destination" />
+                </div>
+                <div class="main__input">
+                    <label for="departing">Departing:</label>
+                    <input type="date" id="departing" name="departing" />
+                </div>
+                <input id="findTrip" type="submit" value="Search">
+            </form>
+        </section>
+
+        <!-- Result section -->
+        <section class="main__results hide" id="results">
+            <div class="main__results__image">
+                <img class="main__result_image" id="cityPhotoValue">
+            </div>
+            <div class="main__results__weather">
+                <div class="main__result">
+                    <span class="resultLabel">My trip to: </span>
+                    <span id="resultToValue"></span>
+                </div>
+                <div class="main__result">
+                    <span class="resultLabel">Departing: </span>
+                    <span id="resultDepartingValue"></span>
+                </div>
+                <div class="main__result">
+                    <span id="resultDaysValue"></span>
+                </div>
+                <div class="main__result">
+                    Typical weather for then is: <span id="weatherValue"></span>
+                </div>
+                <input type="button" onclick="return client.printTrip()" id="print" value="Print" href="#">
+
+            </div>
+
+        </section>
+
+    </main>
+    <footer class="footer">
+        Travel Planner S.L
+    </footer>
+
+    <script>
+        // Check that service workers are supported
+        if ('serviceWorker' in navigator) {
+            // Use the window load event to keep the page load performant
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js');
+            });
+        }
+    </script>
+
+</body>
+
+</html>

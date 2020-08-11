@@ -1,0 +1,155 @@
+.hide {
+  display: none !important;
+}
+
+.main {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  background: url("/src/client/views/images/background.jpg") no-repeat center
+    center/cover;
+}
+
+.main__search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.main__header {
+  text-align: center;
+}
+
+.main__title {
+  font-size: 2rem;
+  color: $white;
+  margin-bottom: 1rem;
+}
+
+.main__subtitle {
+  font-size: 1rem;
+  color: $white;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 576px) {
+  .main__input {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  label {
+    margin-bottom: 1rem;
+  }
+}
+
+.main__form {
+  width: 50vw;
+  padding: 2rem 4rem 2rem 4rem;
+  background-color: rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .main__input {
+    height: 3rem;
+  }
+  label {
+    color: $white;
+    display: inline-block;
+    font-weight: bold;
+    margin-right: 0.5rem;
+    width: 5rem;
+  }
+  input {
+    border: 1px solid $white;
+    border-radius: 0;
+    width: 15rem;
+    height: 2rem;
+    padding: 0 0.5rem 0 0.5rem;
+  }
+
+  input:focus {
+    border: 1px solid black;
+  }
+
+  input[type="submit"] {
+    padding: 0.5rem;
+    border: 0;
+    color: $white;
+    margin-top: 1rem;
+    width: 5rem;
+    background-color: $primary-color;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #b00;
+    color: $white;
+  }
+}
+
+@media (max-width: 576px) {
+  .main__form {
+    width: 100vw;
+    padding: 2rem 0rem 2rem 0rem;
+  }
+}
+
+.main__results {
+  width: 50vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  padding: 2rem 4rem 2rem 4rem;
+  background-color: rgba(0, 0, 0, 0.25);
+  color: $white;
+
+  .main__results__image {
+    padding-right: 2rem;
+  }
+
+  .main__result_image {
+    width: 100%;
+    height: auto;
+  }
+
+  .main__result {
+    height: 2rem;
+  }
+  .resultLabel {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  input[type="button"] {
+    padding: 0.5rem;
+    border: 0;
+    color: $white;
+    margin-top: 1rem;
+    width: 5rem;
+    background-color: $primary-color;
+  }
+}
+
+@media (max-width: 576px) {
+  .main__results {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    padding: 2rem 0rem 2rem 0rem;
+  }
+  .main__results__image {
+    padding-right: 0rem !important;
+  }
+
+  .main__results__weather {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+  }
+}
