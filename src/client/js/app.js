@@ -1,4 +1,5 @@
 import moment from "moment";
+import { isDateValid } from "./URLValidator";
 
 const GEONAMES_USERNAME = "pbalasimon";
 let geoNamesEP = `http://api.geonames.org/searchJSON?q=#to&maxRows=10&username=${GEONAMES_USERNAME}`;
@@ -23,6 +24,11 @@ async function findTrip(event) {
 
   if (momentDeparting.isBefore(now)) {
     alert("Please enter a valid date");
+    return;
+  }
+
+  if (!isDateValid(departing)) {
+    alert("Please enter a valid formated date");
     return;
   }
 
