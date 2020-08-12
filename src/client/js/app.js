@@ -1,6 +1,27 @@
 import moment from "moment";
 import { isDateValid } from "./URLValidator";
 
+const printTrip = () => {
+  window.print();
+};
+
+const getGeonameInfo = async (to) => {
+  try {
+    const info = await fetch("http://localhost:8081/cityInfo", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ to }),
+    });
+    return await info.json();
+  } catch (error) {
+    // FIXME
+    console.error(error);
+  }
+};
+
 async function findTrip(event) {
   event.preventDefault();
 
@@ -45,23 +66,6 @@ async function findTrip(event) {
   console.log(weather);
 }
 
-const getGeonameInfo = async (to) => {
-  try {
-    const info = await fetch("http://localhost:8081/cityInfo", {
-      method: "POST",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ to }),
-    });
-    return await info.json();
-  } catch (error) {
-    // FIXME
-    console.error(error);
-  }
-};
-
 const getWeather = async (forecast, name, countryCode) => {
   try {
     const info = await fetch("http://localhost:8081/weather", {
@@ -79,4 +83,5 @@ const getWeather = async (forecast, name, countryCode) => {
   }
 };
 
-export { findTrip };
+document.querySelector("#searchForm").addEventListener("submit", findTrip);
+document.querySelector("#printTrip").addEventListener("click", printTrip);

@@ -21,7 +21,7 @@
                 <h6 class="main__subtitle">Find the trip of your dreams</h6>
             </div>
 
-            <form class="main__form" onsubmit="return client.findTrip(event)">
+            <form id="searchForm" class="main__form">
                 <div class="main__input">
                     <label for="to">My trip to:</label>
                     <input type="text" id="to" name="to" placeholder="Destination" />
@@ -54,7 +54,8 @@
                 <div class="main__result">
                     Typical weather for then is: <span id="weatherValue"></span>
                 </div>
-                <input type="button" onclick="return client.printTrip()" id="print" value="Print" href="#">
+                <input type="button" id="printTrip" onclick="return client.printTrip()" id="print" value="Print"
+                    href="#">
 
             </div>
 
