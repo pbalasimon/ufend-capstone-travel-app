@@ -1,9 +1,20 @@
 import moment from "moment";
 import { isDateValid } from "./URLValidator";
-
+/**
+ * open window with the page to print it
+ */
 const printTrip = () => {
   window.print();
 };
+
+/**
+ * Update the UI based on the results of the APIs
+ * @param {string} to destination
+ * @param {string} departing date of departure
+ * @param {string} countryName Country Name
+ * @param {string} weather Data with the weather of the city
+ * @param {string} photo url with the photo of the city
+ */
 
 const showResults = (to, departing, countryName, weather, photo) => {
   document.querySelector("#results").classList.remove("hide");
@@ -23,6 +34,11 @@ const showResults = (to, departing, countryName, weather, photo) => {
   document.querySelector("#cityPhotoValue").src = photo;
 };
 
+/**
+ * Get the info of the city
+ * @param {string} to Destination
+ */
+
 const getGeonameInfo = async (to) => {
   try {
     const info = await fetch("http://localhost:8081/city-info", {
@@ -40,6 +56,11 @@ const getGeonameInfo = async (to) => {
   }
 };
 
+/**
+ * Main event handle wich call the different endpoints and update the UI
+ * @param {string} event Submit Event
+ */
+
 async function findTrip(event) {
   event.preventDefault();
 
@@ -47,7 +68,6 @@ async function findTrip(event) {
   const departing = document.querySelector("#departing").value;
 
   // Validate form
-
   const now = moment();
   const momentDeparting = moment(departing, "YYYY-MM-DD");
 
@@ -89,6 +109,12 @@ async function findTrip(event) {
   showResults(to, departing, countryName, weather.data[0], photo.url);
 }
 
+/**
+ * Get the weather of the city
+ * @param {string} to Type of weather to show
+ * @param {string} name City Name
+ * @param {string} to Country Code
+ */
 const getWeather = async (forecast, name, countryCode) => {
   try {
     const info = await fetch("http://localhost:8081/weather", {
@@ -106,9 +132,13 @@ const getWeather = async (forecast, name, countryCode) => {
   }
 };
 
+/**
+ * Get the url of the photo of the city
+ * @param {string} name City Name
+ */
 const getCityPhoto = async (name) => {
   try {
-    const info = await fetch("http://localhost:8081/city-image", {
+    const info = await fetch("http://localhost:8081/city-photo", {
       method: "POST",
       credentials: "same-origin",
       headers: {
@@ -123,5 +153,6 @@ const getCityPhoto = async (name) => {
   }
 };
 
+// Add event listeners
 document.querySelector("#searchForm").addEventListener("submit", findTrip);
 document.querySelector("#printTrip").addEventListener("click", printTrip);
