@@ -1,4 +1,4 @@
-import { isDateValid } from "../client/js/URLValidator";
+import { isDateValid } from "../src/client/js/URLValidator";
 
 describe("isDateValid function", () => {
   test("it should return true if the date is valid", () => {
