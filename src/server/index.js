@@ -4,6 +4,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const app = express();
 const weatherbit = require("@datafire/weatherbit").create();
+const pixabay = require("pixabay-api");
 dotenv.config();
 
 app.use(bodyParser.json());
@@ -21,9 +22,7 @@ const GeocoderGeonames = require("geocoder-geonames"),
     username: process.env.GEONAMES_USERNAME,
   });
 
-app.post("/cityInfo", (req, res, next) => {
-  console.log(req.body);
-  console.log(process.env.GEONAMES_USERNAME);
+app.post("/city-info", (req, res, next) => {
   geocoder
     .get("search", {
       q: req.body.to,
@@ -35,6 +34,7 @@ app.post("/cityInfo", (req, res, next) => {
       res.send(cityInfo);
     })
     .catch(function (error) {
+      // FIXME
       console.log(error);
     });
 });
@@ -49,6 +49,25 @@ app.post("/weather", (req, res, next) => {
     .then((data) => {
       console.log(data);
       res.send(data);
+    })
+    .catch(function (error) {
+      // FIXME
+      console.log(error);
+    });
+});
+
+app.post("/city-image", (req, res, next) => {
+  pixabay
+    .searchImages(process.env.PIXABAY_API_KEY, req.body.name + "+city", {
+      image_type: "photo",
+    })
+    .then((result) => {
+      console.log(result.hits[0].webformatURL);
+      res.send({ url: result.hits[0].webformatURL });
+    })
+    .catch(function (error) {
+      // FIXME
+      console.log(error);
     });
 });
 

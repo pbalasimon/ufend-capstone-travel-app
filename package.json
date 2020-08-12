@@ -21,6 +21,7 @@
     "express": "^4.17.1",
     "geocoder-geonames": "^0.1.2",
     "moment": "^2.27.0",
+    "pixabay-api": "^1.0.4",
     "validator": "^13.1.1",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5"

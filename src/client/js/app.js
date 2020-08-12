@@ -5,9 +5,27 @@ const printTrip = () => {
   window.print();
 };
 
+const showResults = (to, departing, countryName, weather, photo) => {
+  document.querySelector("#results").classList.remove("hide");
+
+  document.querySelector("#resultToValue").innerText = to + ", " + countryName;
+  document.querySelector("#resultDepartingValue").innerText = departing;
+  const now = moment();
+
+  const momentDeparting = moment(departing, "YYYY-MM-DD");
+  const days = momentDeparting.diff(now, "days");
+  document.querySelector("#resultDaysValue").innerText =
+    to + ", " + countryName + " is " + days + " days away";
+  const temp = weather.temp;
+  const weatherDescription = weather.weather.description;
+  document.querySelector("#weatherValue").innerText =
+    temp + ". " + weatherDescription;
+  document.querySelector("#cityPhotoValue").src = photo;
+};
+
 const getGeonameInfo = async (to) => {
   try {
-    const info = await fetch("http://localhost:8081/cityInfo", {
+    const info = await fetch("http://localhost:8081/city-info", {
       method: "POST",
       credentials: "same-origin",
       headers: {
@@ -64,6 +82,11 @@ async function findTrip(event) {
 
   const weather = await getWeather(forecast, name, countryCode);
   console.log(weather);
+
+  const photo = await getCityPhoto(name);
+  console.log(photo);
+
+  showResults(to, departing, countryName, weather.data[0], photo.url);
 }
 
 const getWeather = async (forecast, name, countryCode) => {
@@ -75,6 +98,23 @@ const getWeather = async (forecast, name, countryCode) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ forecast, name, countryCode }),
+    });
+    return await info.json();
+  } catch (error) {
+    // FIXME
+    console.error(error);
+  }
+};
+
+const getCityPhoto = async (name) => {
+  try {
+    const info = await fetch("http://localhost:8081/city-image", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name }),
     });
     return await info.json();
   } catch (error) {
