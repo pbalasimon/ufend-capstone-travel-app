@@ -131,6 +131,11 @@
     width: 5rem;
     background-color: $primary-color;
   }
+
+  input[type="button"]:hover {
+    background-color: #b00;
+    color: $white;
+  }
 }
 
 @media (max-width: 576px) {
