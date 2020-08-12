@@ -38,11 +38,13 @@ async function findTrip(event) {
 
   const info = await getGeonameInfo(to);
   const { name, countryCode, countryName } = info;
+
+  console.log(name, countryCode, countryName);
 }
 
-const getGeonameInfo = (to) => {
+const getGeonameInfo = async (to) => {
   try {
-    const info = fetch("http://localhost:8081/cityInfo", {
+    const info = await fetch("http://localhost:8081/cityInfo", {
       method: "POST",
       credentials: "same-origin",
       headers: {
@@ -50,7 +52,7 @@ const getGeonameInfo = (to) => {
       },
       body: JSON.stringify({ to }),
     });
-    return info;
+    return await info.json();
   } catch (error) {
     // FIXME
     console.error(error);
