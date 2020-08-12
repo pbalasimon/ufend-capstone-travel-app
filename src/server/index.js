@@ -41,8 +41,10 @@ app.post("/city-info", (req, res, next) => {
       res.send(cityInfo);
     })
     .catch(function (error) {
-      // FIXME
       console.log(error);
+      res
+        .status(500)
+        .send({ message: "Error retrieving the info of the city" });
     });
 });
 
@@ -64,8 +66,10 @@ app.post("/weather", (req, res, next) => {
       res.send(data);
     })
     .catch(function (error) {
-      // FIXME
       console.log(error);
+      res
+        .status(500)
+        .send({ message: "Error retrieving the weather of the city" });
     });
 });
 
@@ -84,8 +88,10 @@ app.post("/city-photo", (req, res, next) => {
       res.send({ url: result.hits[0].webformatURL });
     })
     .catch(function (error) {
-      // FIXME
       console.log(error);
+      res
+        .status(500)
+        .send({ message: "Error retrieving the photo of the city" });
     });
 });
 

@@ -51,8 +51,8 @@ const getGeonameInfo = async (to) => {
     });
     return await info.json();
   } catch (error) {
-    // FIXME
     console.error(error);
+    alert(error.message);
   }
 };
 
@@ -127,8 +127,8 @@ const getWeather = async (forecast, name, countryCode) => {
     });
     return await info.json();
   } catch (error) {
-    // FIXME
     console.error(error);
+    alert(error.message);
   }
 };
 
@@ -148,8 +148,8 @@ const getCityPhoto = async (name) => {
     });
     return await info.json();
   } catch (error) {
-    // FIXME
     console.error(error);
+    alert(error.message);
   }
 };
 
