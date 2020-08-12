@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const app = express();
+const weatherbit = require("@datafire/weatherbit").create();
 dotenv.config();
 
 app.use(bodyParser.json());
@@ -35,6 +36,19 @@ app.post("/cityInfo", (req, res, next) => {
     })
     .catch(function (error) {
       console.log(error);
+    });
+});
+
+app.post("/weather", (req, res, next) => {
+  weatherbit.forecast.daily_city_city_country_country
+    .get({
+      city: req.body.name,
+      country: req.body.countryCode,
+      key: process.env.WEATHERBIT_API_KEY,
+    })
+    .then((data) => {
+      console.log(data);
+      res.send(data);
     });
 });
 

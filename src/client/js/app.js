@@ -40,6 +40,9 @@ async function findTrip(event) {
   const { name, countryCode, countryName } = info;
 
   console.log(name, countryCode, countryName);
+
+  const weather = await getWeather(forecast, name, countryCode);
+  console.log(weather);
 }
 
 const getGeonameInfo = async (to) => {
@@ -51,6 +54,23 @@ const getGeonameInfo = async (to) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ to }),
+    });
+    return await info.json();
+  } catch (error) {
+    // FIXME
+    console.error(error);
+  }
+};
+
+const getWeather = async (forecast, name, countryCode) => {
+  try {
+    const info = await fetch("http://localhost:8081/weather", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ forecast, name, countryCode }),
     });
     return await info.json();
   } catch (error) {
